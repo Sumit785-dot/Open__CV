@@ -1,0 +1,70 @@
+import cv2
+
+image_path = input("Enter image path: ").strip()
+image = cv2.imread(image_path)
+
+if image is None:
+    print("Image not loaded! Path check karo.")
+    exit()
+
+a = int(input(
+    "Draw line: 1\n"
+    "Draw circle: 2\n"
+    "Draw rectangle: 3\n"
+    "Text: 4\n"
+    "Enter your choice: "
+))
+
+if a == 1:
+    start_point = (100, 300)
+    end_point = (500, 300)   # same Y -> bilkul seedhi horizontal line
+
+    color = (0, 255, 0)  # green (B, G, R)
+    thickness = 3
+
+    cv2.line(image, start_point, end_point, color, thickness)
+    cv2.imshow("Line", image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+elif a == 2:
+    h, w = image.shape[:2]
+    center = (w // 2, h // 2)   # image ka exact center
+
+    cv2.circle(image, center, 150, (250, 0, 0), 5)  # thickness = 5
+    cv2.imshow("Circle in Center", image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+elif a == 3:
+    # yaha pe alag se None check ki zarurat nahi, upar already check kar chuke
+    print("Image loaded, drawing rectangle...")
+
+    pt1 = (100, 200)
+    pt2 = (600, 400)  # thoda reasonable size, chahe toh change kar sakte ho
+    color = (0, 0, 255)
+    thickness = 3
+
+    cv2.rectangle(image, pt1, pt2, color, thickness)
+    cv2.imshow("Rectangle", image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+elif a == 4:
+    print("Image loaded, putting text...")
+
+    cv2.putText(
+        image,
+        "Hello bro this is OpenCV",
+        (50, 300),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        1.2,
+        (255, 0, 0),
+        2,
+    )
+    cv2.imshow("Text", image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+else:
+    print("Invalid choice!")
